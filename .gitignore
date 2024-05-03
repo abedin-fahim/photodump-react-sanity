@@ -1,0 +1,23 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+/dist
+
+# Logs
+/logs
+*.log
+
+# Coverage directory used by testing tools
+/coverage
+
+# Misc
+.DS_Store
+*.pem
+
+# Typescript
+*.tsbuildinfo
+
+# Dotenv and similar local-only files
+*.local
