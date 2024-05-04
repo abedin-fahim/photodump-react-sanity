@@ -1,8 +1,34 @@
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import RootLayout from './pages/Root';
+import ErrorPage from './pages/Error';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+    ],
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
+    errorElement: <ErrorPage />,
+  },
+]);
+
 function App() {
   return (
-    <div className='font-sans'>
-      <h1 className='text-xl'>React App</h1>
-    </div>
+    <GoogleOAuthProvider clientId=''>
+      <RouterProvider router={router} />
+    </GoogleOAuthProvider>
   );
 }
 
