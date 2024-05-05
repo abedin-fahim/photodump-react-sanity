@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: ['./public/index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
@@ -80,14 +80,12 @@ export default {
       transitionProperty: {
         height: 'height',
       },
+      cursor: {
+        'zoom-in': 'zoom-in',
+        pointer: 'pointer',
+      },
     },
   },
   darkMode: false, // or 'media' or 'class'
-  theme: {
-    cursor: {
-      'zoom-in': 'zoom-in',
-      pointer: 'pointer',
-    },
-  },
   plugins: [],
 };
