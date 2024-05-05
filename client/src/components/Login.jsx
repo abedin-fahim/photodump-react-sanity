@@ -1,10 +1,29 @@
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 import bgVideo from '../assets/share.mp4';
 import logo from '../assets/logowhite.png';
+import { client } from '../utils/sanityClient';
 
 const Login = () => {
+  const navigate = useNavigate()
   const [user, setUser] = useState(false);
+
+  const oAuthResponseHandler = (response) => {
+    const decoded = jwtDecode(response.credential);
+    localStorage.setItem('user', decoded);
+
+    const { name, picture, sub } = decoded;
+    const user = {
+      _id: sub,
+      _type: user,
+      userName: name,
+      image: picture,
+    };
+
+    const 
+  };
+
   return (
     <div className='flex justify-start items-center flex-col h-screen'>
       <div className='relative h-full w-full'>
@@ -30,7 +49,7 @@ const Login = () => {
                 <div>Logged in</div>
               ) : (
                 <GoogleLogin
-                  onSuccess={(response) => console.log(response)}
+                  onSuccess={(response) => oAuthResponseHandler(response)}
                   onError={(error) => console.log(error)}
                 />
               )}
