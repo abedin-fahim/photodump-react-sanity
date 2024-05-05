@@ -1,12 +1,13 @@
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { useState } from 'react';
+import { client } from '../utils/sanityClient';
+import { GoogleLogin, googleLogout } from '@react-oauth/google';
+import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import bgVideo from '../assets/share.mp4';
 import logo from '../assets/logowhite.png';
-import { client } from '../utils/sanityClient';
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [user, setUser] = useState(false);
 
   const oAuthResponseHandler = (response) => {
@@ -21,7 +22,7 @@ const Login = () => {
       image: picture,
     };
 
-    const 
+    // const
   };
 
   return (
