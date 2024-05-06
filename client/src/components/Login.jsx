@@ -10,19 +10,25 @@ const Login = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(false);
 
-  const oAuthResponseHandler = (response) => {
+  const oAuthResponseHandler = async (response) => {
     const decoded = jwtDecode(response.credential);
-    localStorage.setItem('user', decoded);
+    localStorage.setItem('user', JSON.stringify(decoded));
 
     const { name, picture, sub } = decoded;
-    const user = {
+    const decodedUser = {
       _id: sub,
-      _type: user,
+      _type: 'user',
       userName: name,
       image: picture,
     };
 
-    // const
+    await client
+      .createIfNotExists(decodedUser)
+      .then((res) => {
+        navigate('/', { replace: true });
+        console.log(res);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
