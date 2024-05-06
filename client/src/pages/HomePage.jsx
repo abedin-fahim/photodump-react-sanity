@@ -3,23 +3,36 @@ import { HiMenu } from 'react-icons/hi';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { Link, Route, Routes } from 'react-router-dom';
 import { Sidebar, UserProfile } from '../components';
-// import { userQuery } from '../utils/data';
+import { userQuery } from '../utils/data';
 import { client } from '../utils/sanityClient';
 import Pins from './Pins';
 import logo from '../assets/logo.png';
 
 const HomePage = () => {
+  const [user, setUser] = useState(null);
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const userInfo = localStorage.getItem('user') !== undefined ? JSON.parse(user) : localStorage.clear()
+
+  const userInfo =
+    localStorage.getItem('user') !== undefined
+      ? JSON.parse(localStorage.getItem('user'))
+      : localStorage.clear();
 
   useEffect(() => {
-    
-  
-    return () => {
-      second
-    }
-  }, [])
-  
+    const getUser = async () => {
+      const query = userQuery(userInfo?._id);
+      try {
+        const fetchedUser = await client.fetch(query);
+        setUser(fetchedUser[0]);
+        console.log(fetchedUser);
+        // console.log(fetchedUser[0]);
+      } catch (error) {
+        console.log('Could not fetch user', error);
+      }
+    };
+
+    getUser();
+  }, []);
+
   return (
     <div className='flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out'>
       <div className='hidden md:flex h-screen flex-initial'>
@@ -39,7 +52,7 @@ const HomePage = () => {
               className='w-28'
             />
           </Link>
-          <Link to={`user-profile/${user?._id}`}>
+          <Link to={`user-profile/${user?.sub}`}>
             <img
               src={user?.image}
               alt='user-pic'
@@ -65,7 +78,7 @@ const HomePage = () => {
       </div>
       <div
         className='pb-2 flex-1 h-screen overflow-y-scroll'
-        ref={scrollRef}
+        // ref={scrollRef}
       >
         <Routes>
           <Route
