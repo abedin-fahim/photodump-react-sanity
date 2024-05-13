@@ -11,6 +11,7 @@ import logo from '../assets/logo.png';
 const HomePage = () => {
   const [user, setUser] = useState(null);
   const [toggleSidebar, setToggleSidebar] = useState(false);
+  const scrollRef = useRef(null);
 
   const userInfo =
     localStorage.getItem('user') !== undefined
@@ -18,19 +19,15 @@ const HomePage = () => {
       : localStorage.clear();
 
   useEffect(() => {
-    const getUser = async () => {
-      const query = userQuery(userInfo?._id);
-      try {
-        const fetchedUser = await client.fetch(query);
-        setUser(fetchedUser[0]);
-        console.log(fetchedUser);
-        // console.log(fetchedUser[0]);
-      } catch (error) {
-        console.log('Could not fetch user', error);
-      }
-    };
+    const query = userQuery(userInfo?.googleId);
 
-    getUser();
+    client.fetch(query).then((data) => {
+      setUser(data[0]);
+    });
+  }, []);
+
+  useEffect(() => {
+    scrollRef.current.scrollTo(0, 0);
   }, []);
 
   return (
@@ -78,7 +75,7 @@ const HomePage = () => {
       </div>
       <div
         className='pb-2 flex-1 h-screen overflow-y-scroll'
-        // ref={scrollRef}
+        ref={scrollRef}
       >
         <Routes>
           <Route

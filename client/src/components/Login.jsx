@@ -22,6 +22,8 @@ const Login = () => {
       image: picture,
     };
 
+    setUser(decodedUser);
+
     await client
       .createIfNotExists(decodedUser)
       .then((res) => {

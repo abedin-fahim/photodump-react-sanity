@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 
-const error = () => {
+const ErrorPage = () => {
   return (
     <div>
-      <h2>You've found the error page</h2>
+      <h2>You've found the ErrorPage page</h2>
       <Link to='../'>Go back</Link>
     </div>
   );
 };
 
-export default error;
+export default ErrorPage;
