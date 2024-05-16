@@ -24,13 +24,9 @@ const Login = () => {
 
     setUser(decodedUser);
 
-    await client
-      .createIfNotExists(decodedUser)
-      .then((res) => {
-        navigate('/', { replace: true });
-        console.log(res);
-      })
-      .catch((error) => console.log(error));
+    client.createIfNotExists(user).then((res) => {
+      navigate('/', { replace: true });
+    });
   };
 
   return (
@@ -59,7 +55,7 @@ const Login = () => {
               ) : (
                 <GoogleLogin
                   onSuccess={(response) => oAuthResponseHandler(response)}
-                  onError={(error) => console.log(error)}
+                  // onError={(error) => console.log(error)}
                 />
               )}
             </div>

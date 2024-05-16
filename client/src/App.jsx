@@ -1,8 +1,8 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import ErrorPage from './pages/Error';
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
+import HomePage from './pages/Home';
+import { Login as LoginPage } from './components';
 import { useEffect } from 'react';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     const User =
-      localStorage.getItem('user') !== 'undefined'
+      localStorage.getItem('user') !== undefined
         ? JSON.parse(localStorage.getItem('user'))
         : localStorage.clear();
 
@@ -22,11 +22,11 @@ function App() {
       <Routes>
         <Route
           path='login'
-          element={LoginPage}
+          element={<LoginPage />}
         />
         <Route
           path='/*'
-          element={HomePage}
+          element={<HomePage />}
           errorElement={ErrorPage}
         />
       </Routes>
